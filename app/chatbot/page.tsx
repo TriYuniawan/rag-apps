@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function ChatPage() {
   const [input, setInput] = useState("");
@@ -37,8 +38,12 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-amber-50 p-4">
-      <div className="w-full max-w-lg bg-white text-black shadow-xl rounded-2xl flex flex-col p-4 h-[80vh]">
+    <div className="flex flex-col items-center justify-center h-screen w-screen bg-amber-50 p-2">
+      <div className="justify-center text-black top-8 mb-4">
+        <Image src={"/logo4.png"} alt="logo" width={300} height={100} />
+      </div>
+
+      <div className="w-full max-w-250 bg-white text-black shadow-xl rounded-2xl flex flex-col p-4 h-[80vh]">
         {/* Chat messages */}
         <div className="flex-1 overflow-y-auto space-y-3 mb-4">
           {messages.map((msg, idx) => (
@@ -46,7 +51,7 @@ export default function ChatPage() {
               key={idx}
               className={`p-3 rounded-2xl max-w-[80%] ${
                 msg.role === "user"
-                  ? "bg-blue-500 text-white self-end ml-auto"
+                  ? "  bg-gradient-to-r from-[#7E22CE] via-[#DB2777] to-[#F97316] text-white self-end ml-auto"
                   : "bg-gray-200 text-black self-start mr-auto"
               }`}
             >
@@ -73,7 +78,7 @@ export default function ChatPage() {
           <button
             onClick={sendMessage}
             disabled={loading}
-            className="bg-blue-500 text-white px-4 py-2 rounded-xl hover:bg-blue-600 disabled:bg-gray-400"
+            className="bg-gradient-to-r from-purple-500 to-pink-500  text-white px-4 py-2 rounded-xl hover:bg-blue-600 disabled:bg-gray-400"
           >
             Kirim
           </button>

@@ -1,4 +1,3 @@
-// app/api/ask-unli/route.ts
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
@@ -20,7 +19,24 @@ export async function POST(req: Request) {
 
     const completion = await client.chat.completions.create({
       model: "auto",
-      messages: [{ role: "user", content: question }],
+      messages: [
+        {
+          role: "system",
+          content: `Kamu adalah asisten kesehatan mental bernama Feelsense karya Zun. 
+
+ATURAN KETAT:
+- HANYA jawab pertanyaan tentang: kesehatan mental, stress, anxiety, depresi, burnout, self-care, coping mechanism, mindfulness, dan topik psikologi.
+- Jika user bertanya di luar topik mental health (seperti: resep masakan, coding, matematika, politik, olahraga, teknologi, dll), JANGAN jawab pertanyaannya.
+- Untuk pertanyaan off-topic, berikan respons: "Maaf, saya hanya bisa membantu dengan topik kesehatan mental. Ada yang ingin kamu ceritakan tentang perasaan atau kondisi mental kamu hari ini?"
+- Kamu AI buatan Tri Yuniawan
+
+Gunakan bahasa yang empati, supportif, dan tidak menghakimi.`,
+        },
+        {
+          role: "user",
+          content: question,
+        },
+      ],
     });
 
     // Ambil isi jawaban
